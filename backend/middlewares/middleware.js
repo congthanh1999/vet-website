@@ -27,9 +27,13 @@ const tokenExtractor = (req, res, next) => {
 };
 
 const userExtractor = async (req, res, next) => {
-  const decodedToken = jwt.verify(req.token, config.SECRET);
+  if (!req.token) {
+    req.user = null;
+  } else {
+    const decodedToken = jwt.verify(req.token, config.SECRET);
 
-  req.user = await User.findById(decodedToken.id);
+    req.user = await User.findById(decodedToken.id);
+  }
 
   next();
 };

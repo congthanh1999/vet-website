@@ -1,5 +1,4 @@
 GET http://localhost:3001/api/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvbmd0aGFuaCIsImlkIjoiNjYyNWU5OWFmOGFkNzU2ZTdlMDBlZTFiIiwiaWF0IjoxNzEzNzYwNjc5fQ.NG4lE5CMItpLKtZnETrmPXy_v_VqkhrQuZjeOZpBLJo
 
 ###
 GET http://localhost:3001/api/posts/66239b7a44b6a306bf5e7041
