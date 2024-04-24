@@ -7,6 +7,10 @@ const errorHandler = (error, req, res, next) => {
 
   if (error.name === "JsonWebTokenError") {
     return res.status(404).json({ error: `unauthorized token` });
+  } else if (error.name === "ValidationError") {
+    return res.status(400).json({ error: error.message });
+  } else if (error.name === "MongoServerError" && error.code === 11000) {
+    return res.status(400).json({ error: `This username is already taken` });
   }
 
   next(error);

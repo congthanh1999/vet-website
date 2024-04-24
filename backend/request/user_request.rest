@@ -1,10 +1,20 @@
 GET http://localhost:3001/api/users
 
 ###
-GET http://localhost:3001/api/users/6625c8068670dbbaff92cb6c
+GET http://localhost:3001/api/users/6625e99af8ad756e7e00ee1b
 
 ###
 POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username":"congthanh1999" ,
+    "password":"truongcongT99",
+    "name":"truong cong thanh"
+}
+
+###
+PUT http://localhost:3001/api/users/6625e99af8ad756e7e00ee1b
 Content-Type: application/json
 
 {
@@ -14,14 +24,4 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3001/api/users/6625c8068670dbbaff92cb6c
-Content-Type: application/json
-
-{
-    "username":"congthanh" ,
-    "password":"truongcongT",
-    "name":"truong cong thanh"
-}
-
-###
-DELETE http://localhost:3001/api/users/6625cf8b7acf3468333725dd
+DELETE http://localhost:3001/api/users/6625e99af8ad756e7e00ee1b

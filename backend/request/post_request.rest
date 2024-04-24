@@ -1,3 +1,5 @@
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvbmd0aGFuaCIsImlkIjoiNjYyNWU5OWFmOGFkNzU2ZTdlMDBlZTFiIiwiaWF0IjoxNzEzOTI0MzkxfQ.EGJjHylrLO79fvZr0ksUqRqgUPeoYUdU6y5dJ3WGuvw
+
 GET http://localhost:3001/api/posts
 
 ###
@@ -5,17 +7,17 @@ GET http://localhost:3001/api/posts/66239b7a44b6a306bf5e7041
 
 ###
 POST http://localhost:3001/api/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvbmd0aGFuaCIsImlkIjoiNjYyNWU5OWFmOGFkNzU2ZTdlMDBlZTFiIiwiaWF0IjoxNzEzNzYwNjc5fQ.NG4lE5CMItpLKtZnETrmPXy_v_VqkhrQuZjeOZpBLJo
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "title":"aboifjew",
-    "content":"0284243"
+    "title":"",
+    "content":"fwfwefe"
 }
 
 ###
 PUT http://localhost:3001/api/posts/6625ee01ab28c431b36a170b
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvbmd0aGFuaCIsImlkIjoiNjYyNWU5OWFmOGFkNzU2ZTdlMDBlZTFiIiwiaWF0IjoxNzEzNzYwNjc5fQ.NG4lE5CMItpLKtZnETrmPXy_v_VqkhrQuZjeOZpBLJo
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -24,4 +26,4 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3001/api/posts/6625ebd92c3a25aa2614bba5
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvbmd0aGFuaCIsImlkIjoiNjYyNWU5OWFmOGFkNzU2ZTdlMDBlZTFiIiwiaWF0IjoxNzEzNzYwNjc5fQ.NG4lE5CMItpLKtZnETrmPXy_v_VqkhrQuZjeOZpBLJo
+Authorization: Bearer {{token}}
