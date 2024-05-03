@@ -1,0 +1,10 @@
+GET http://localhost:3001/api/headers
+
+###
+POST http://localhost:3001/api/headers
+Content-Type: application/json
+
+{
+    "name":"About us",
+    "content":"12345"
+}
