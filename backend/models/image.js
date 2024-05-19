@@ -1,18 +1,21 @@
 const mongoose = require("mongoose");
 
-const articleSchema = new mongoose.Schema({
-  title: {
+const imageSchema = new mongoose.Schema({
+  name: {
     type: String,
   },
-  image: {
+  desc: {
     type: String,
   },
-  content: {
+  data: {
+    type: Buffer,
+  },
+  contentType: {
     type: String,
   },
 });
 
-articleSchema.set("toJSON", {
+imageSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -20,4 +23,4 @@ articleSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Article", articleSchema);
+module.exports = mongoose.model("Image", imageSchema);

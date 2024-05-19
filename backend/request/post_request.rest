@@ -25,5 +25,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3001/api/posts/6625ebd92c3a25aa2614bba5
+DELETE http://localhost:3001/api/posts/6625ee01ab28c431b36a170b
 Authorization: Bearer {{token}}

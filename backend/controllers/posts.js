@@ -47,7 +47,9 @@ postsRouter.delete("/:id", async (req, res) => {
   const user = req.user;
   const deletedPost = await Post.findByIdAndDelete(req.params.id);
 
-  user.posts = user.posts.filter((post) => post._id !== deletedPost._id);
+  user.posts = user.posts.filter(
+    (post) => post._id.toString() !== deletedPost._id.toString()
+  );
   await user.save();
 
   res.status(204).end();

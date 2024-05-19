@@ -1,0 +1,13 @@
+GET http://localhost:3001/api/introduction
+
+###
+POST http://localhost:3001/api/introduction
+Content-Type: application/json
+
+{
+    "header":"Introduction",
+    "headerImage":{
+        "name":"header_image.jpg",
+        "image":"../data/images/header_image.jpg"
+    }
+}
