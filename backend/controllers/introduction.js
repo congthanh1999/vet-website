@@ -89,6 +89,8 @@ introductionRouter.post("/", upload.any(), async (req, res) => {
 
 introductionRouter.patch("/:id", async (req, res) => {
   const { certificates, ...restUpdate } = req.body;
+
+  
 });
 
 introductionRouter.delete("/:id", async (req, res) => {
