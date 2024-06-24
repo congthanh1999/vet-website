@@ -47,50 +47,44 @@ introductionRouter.post("/", upload.any(), async (req, res) => {
   res.status(201).json(createdIntroduction);
 });
 
-// introductionRouter.patch("/:id", upload.any(), async (req, res) => {
-//   const updateContent = req.body;
+introductionRouter.patch("/:id", upload.any(), async (req, res) => {
+  const updateContent = req.body;
 
-//   if (req.files) {
-//     req.files.forEach((file) => {
-//       updateContent[`${file.fieldname}`] = {
-//         data: file.buffer,
-//         contentType: "image/png",
-//       };
-//     });
-//   }
+  if (req.files) {
+    req.files.forEach((file) => {
+      updateContent[`${file.fieldname}`] = {
+        data: file.buffer,
+        contentType: "image/png",
+      };
+    });
+  }
 
-//   const result = {};
-//   for (let key in updateContent) {
-//     _.set(result, key, updateContent[key]);
-//   }
+  const result = {};
+  for (let key in updateContent) {
+    _.set(result, key, updateContent[key]);
+  }
 
-//   const introduction = await Introduction.findById(req.params.id);
+  const introduction = await Introduction.findById(req.params.id);
 
-//   for (let i = 0; i < result.certificates.length; i++) {
-//     if (result.certificates[i]) {
-//       introduction.certificates
-//         .id(introduction.certificates[i].id)
-//         .set(result.certificates[i]);
-//     }
-//   }
+  for (let i = 0; i < result.certificates.length; i++) {
+    if (result.certificates[i]) {
+      introduction.certificates
+        .id(introduction.certificates[i].id)
+        .set(result.certificates[i]);
+    }
+  }
 
-//   const updatedIntroduction = await Introduction.findByIdAndUpdate(
-//     req.params.id,
-//     introduction,
-//     {
-//       new: true,
-//       runValidators: true,
-//       context: "query",
-//     }
-//   ).lean();
+  const updatedIntroduction = await Introduction.findByIdAndUpdate(
+    req.params.id,
+    introduction,
+    {
+      new: true,
+      runValidators: true,
+      context: "query",
+    }
+  ).lean();
 
-//   res.status(201).json(updatedIntroduction);
-// });
-
-introductionRouter.patch("/:id", async (req, res) => {
-  const { certificates, ...restUpdate } = req.body;
-
-  
+  res.status(201).json(updatedIntroduction);
 });
 
 introductionRouter.delete("/:id", async (req, res) => {
