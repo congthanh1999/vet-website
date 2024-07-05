@@ -1,8 +1,5 @@
 const introductionRouter = require("express").Router();
 const { Introduction } = require("../models/introduction");
-const multer = require("multer");
-const _ = require("lodash");
-const upload = multer();
 
 introductionRouter.get("/", async (req, res) => {
   const introduction = await Introduction.find({});
