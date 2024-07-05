@@ -1,32 +1,18 @@
 const mongoose = require("mongoose");
-const Image = require("./image");
-
-const headerSchema = new mongoose.Schema({
-  title: {
-    type: String,
-  },
-  image: {
-    type: Image.schema,
-  },
-});
-
-headerSchema.set("toJSON", {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-});
 
 const articleSchema = new mongoose.Schema({
   title: {
     type: String,
   },
-  image: {
-    type: Image.schema,
+  imageUrl: {
+    type: String,
   },
   content: {
     type: String,
+  },
+  introduction: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Introduction",
   },
 });
 
@@ -42,11 +28,20 @@ const certificateSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-  image: {
-    type: Image.schema,
+  imageUrl: {
+    type: String,
   },
   issueYear: {
     type: Date,
+    validatate: {
+      validator: (v) => {
+        return /^(\d{4})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+      },
+    },
+  },
+  introduction: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Introduction",
   },
 });
 
@@ -68,8 +63,12 @@ const personSchema = new mongoose.Schema({
   scholar: {
     type: String,
   },
-  image: {
-    type: Image.schema,
+  imageUrl: {
+    type: String,
+  },
+  introduction: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Introduction",
   },
 });
 
@@ -82,10 +81,32 @@ personSchema.set("toJSON", {
 });
 
 const introductionSchema = new mongoose.Schema({
-  header: headerSchema,
-  certificates: [certificateSchema],
-  managers: [personSchema],
-  articles: [articleSchema],
+  title: {
+    type: String,
+    // required: true,
+  },
+  imageUrl: {
+    type: String,
+    // required: true,
+  },
+  certificates: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Certificate",
+    },
+  ],
+  managers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Person",
+    },
+  ],
+  articles: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Article",
+    },
+  ],
 });
 
 introductionSchema.set("toJSON", {
@@ -96,4 +117,9 @@ introductionSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Introduction", introductionSchema);
+module.exports = {
+  Introduction: mongoose.model("Introduction", introductionSchema),
+  Certificate: mongoose.model("Certificate", certificateSchema),
+  Person: mongoose.model("Person", personSchema),
+  Article: mongoose.model("Article", articleSchema),
+};

@@ -1,8 +1,5 @@
 const introductionRouter = require("express").Router();
-const Introduction = require("../models/introduction");
-const multer = require("multer");
-const _ = require("lodash");
-const upload = multer();
+const { Introduction } = require("../models/introduction");
 
 introductionRouter.get("/", async (req, res) => {
   const introduction = await Introduction.find({});
@@ -12,79 +9,37 @@ introductionRouter.get("/", async (req, res) => {
 
 introductionRouter.get("/:id", async (req, res) => {
   const introduction = await Introduction.findById(req.params.id);
-  const img = Buffer.from(introduction.header.image.data, "base64");
 
-  res.send(`
-  <html>
-    <body>
-      <img src="data:image/jpeg;base64,${img.toString("base64")}" />
-    </body>
-  </html>
-`);
+  res.status(200).json(introduction);
 });
 
-introductionRouter.post("/", upload.any(), async (req, res) => {
-  const newIntroductionData = req.body;
-
-  if (req.files) {
-    req.files.forEach((file) => {
-      newIntroductionData[`${file.fieldname}`] = {
-        data: file.buffer,
-        contentType: "image/png",
-      };
-    });
-  }
-
-  const result = {};
-  for (let key in newIntroductionData) {
-    _.set(result, key, newIntroductionData[key]);
-  }
-
-  const newIntroduction = new Introduction(result);
+introductionRouter.post("/", async (req, res) => {
+  const imageUrl = req.cloudImageUrl;
+  const newIntroduction = new Introduction({
+    ...req.body,
+    imageUrl,
+  });
 
   const createdIntroduction = await newIntroduction.save();
 
   res.status(201).json(createdIntroduction);
 });
 
-introductionRouter.patch("/:id", upload.any(), async (req, res) => {
-  const updateContent = req.body;
+introductionRouter.patch("/:id", async (req, res) => {
+  const imageUrl = req.cloudImageUrl;
+  const newIntroduction = { ...req.body, imageUrl };
 
-  if (req.files) {
-    req.files.forEach((file) => {
-      updateContent[`${file.fieldname}`] = {
-        data: file.buffer,
-        contentType: "image/png",
-      };
-    });
-  }
-
-  const result = {};
-  for (let key in updateContent) {
-    _.set(result, key, updateContent[key]);
-  }
-
-  const introduction = await Introduction.findById(req.params.id);
-
-  for (let i = 0; i < result.certificates.length; i++) {
-    if (result.certificates[i]) {
-      introduction.certificates
-        .id(introduction.certificates[i].id)
-        .set(result.certificates[i]);
-    }
-  }
-
-  const updatedIntroduction = await Introduction.findByIdAndUpdate(
+  const updatedIntroduciton = await Introduction.findByIdAndUpdate(
     req.params.id,
-    introduction,
+    newIntroduction,
     {
       new: true,
       runValidators: true,
       context: "query",
     }
-  ).lean();
+  );
 
-  res.status(201).json(updatedIntroduction);
+  res.status(200).json(updatedIntroduciton);
 });
 
 introductionRouter.delete("/:id", async (req, res) => {
